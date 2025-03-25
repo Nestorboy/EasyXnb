@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Configuration;
 using System.Collections.Specialized;
 using System.Globalization;
+using EasyXnb;
 
 //untested:
 //texture loading in-game
@@ -238,21 +239,34 @@ namespace DynamicFontGenerator
 
         protected override void Initialize()
 		{
-			bool exceptionCaught = false;
 			base.Initialize();
-            try
-            {
-                CompileEffects();
-				if(compileFontsSetting) CompileFonts();
-				if(compileTexturesSetting) CompileTextures();
-				CompileModels();
-            }
-            catch (Exception e)
-            {
-                exceptionCaught = true;
-                Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine((e.InnerException ?? e).Message);
+
+			bool exceptionCaught = false;
+			try
+			{
+				// TODO: Make function to gather content items.
+				List<string> contentItems = new List<string>(Directory.EnumerateFiles(inputDirectorySetting, "*.fx"));
+				contentItems.AddRange(Directory.EnumerateFiles(inputDirectorySetting, "*.fbx"));
+				if (compileFontsSetting) contentItems.AddRange(Directory.EnumerateFiles(inputDirectorySetting, "*.dynamicfont"));
+				if (compileTexturesSetting)
+				{
+					var extensions = ExtensionUtils.TypeToExtensions[ExtensionUtils.FileType.Texture].ToList();
+					if (ignorePngs) extensions.Remove("*.png");
+					ParallelQuery<string> list = extensions.AsParallel().SelectMany(searchPattern => Directory.EnumerateFiles(inputDirectorySetting, searchPattern));
+					contentItems.AddRange(list);
+				}
+
+				ContentBuilder cb = new ContentBuilder(profile: profileSetting.ToString(), compress: compressOutputSetting);
+				cb.PackageContent(contentItems.ToArray(),
+					inputDirectorySetting, outputDirectorySetting, intermedDirectorySetting,
+					true);
+			}
+			catch (Exception e)
+			{
+				exceptionCaught = true;
+				Console.WriteLine();
+				Console.ForegroundColor = ConsoleColor.DarkYellow;
+				Console.WriteLine((e.InnerException ?? e).Message);
 				if (waitForInputOnErrorSetting)
 				{
                     Console.ReadLine();

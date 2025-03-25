@@ -36,6 +36,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="Microsoft.Xna.Framework">
       <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.dll</HintPath>
     </Reference>
