@@ -22,6 +22,7 @@ namespace EasyXnb
         public readonly string InputDirectorySetting = SettingOrDefault("InputDirectory", Environment.CurrentDirectory);
         public readonly string OutputDirectorySetting = SettingOrDefault("OutputDirectory", Environment.CurrentDirectory);
 
+        public readonly bool CreateLogFileSetting = SettingOrDefault("CreateLogFile", false);
         public readonly bool CloseImmediatelySetting = SettingOrDefault("CloseImmediately", false);
         public readonly bool WaitForInputOnErrorSetting = SettingOrDefault("WaitForInputOnError", true);
 
@@ -35,7 +36,7 @@ namespace EasyXnb
                 var cb = new ContentBuilder(profile: ProfileSetting.ToString(), compress: CompressOutputSetting);
                 cb.PackageContent(contentItems.ToArray(),
                     InputDirectorySetting, OutputDirectorySetting, IntermediateDirectorySetting,
-                    false);
+                    CreateLogFileSetting);
             }
             catch (Exception e)
             {
