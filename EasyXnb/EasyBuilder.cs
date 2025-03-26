@@ -39,6 +39,8 @@ namespace EasyXnb
             }
             catch (Exception e)
             {
+                RemoveCacheFile();
+
                 exceptionCaught = true;
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -49,8 +51,11 @@ namespace EasyXnb
                     Environment.Exit(0);
                 }
             }
+            finally
+            {
+                RemoveCacheFile();
+            }
 
-            RemoveCacheFile();
 
             if (!exceptionCaught || !WaitForInputOnErrorSetting)
             {
