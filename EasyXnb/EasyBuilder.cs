@@ -60,7 +60,7 @@ namespace EasyXnb
             if (!exceptionCaught || !WaitForInputOnErrorSetting)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Done! (Closing in 10 seconds)");
+                Console.WriteLine("[EasyXnb] Done! (Closing in 10 seconds)");
                 if (!CloseImmediatelySetting) Thread.Sleep(10000);
                 Environment.Exit(0);
             }
