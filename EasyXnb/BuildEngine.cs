@@ -95,11 +95,17 @@ namespace EasyXnb
 
         public void LogErrorEvent(BuildErrorEventArgs e)
         {
+            string msg = e.Message;
             if (ShouldLog)
             {
-                Log($"{DateTime.Now} Error: {e.Message}");
+                Log($"{DateTime.Now} Error: {msg}");
             }
-            _errors.Add($"{e.File}: {e.Message}");
+
+            string file = e.File;
+            if (!msg.Contains(file))
+                msg = $"{file}: {msg}";
+
+            _errors.Add(msg);
         }
 
         public void LogMessageEvent(BuildMessageEventArgs e)
