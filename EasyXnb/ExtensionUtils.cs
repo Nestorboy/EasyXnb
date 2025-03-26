@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 
 namespace EasyXnb
 {
@@ -57,7 +58,8 @@ namespace EasyXnb
 
         public static FileType GetFileType(string fileName)
         {
-            return ExtensionToType.TryGetValue(fileName, out FileType fileType) ? fileType : FileType.Unsupported;
+            string extension = Path.GetExtension(fileName);
+            return ExtensionToType.TryGetValue(extension, out FileType fileType) ? fileType : FileType.Unsupported;
         }
     }
 }
