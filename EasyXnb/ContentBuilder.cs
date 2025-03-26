@@ -138,7 +138,9 @@ namespace EasyXnb
 
                 if (!Execute())
                 {
-                    throw new Exception("Failed to execute BuildContent Task.");
+                    List<string> errors = _buildEngine.GetErrors();
+                    errors.Insert(0, "[EasyXnb] Failed to execute BuildContent Task:");
+                    throw new Exception(string.Join("\n", errors));
                 }
 
                 if (OutputContentFiles != null)
