@@ -89,7 +89,7 @@ namespace EasyXnb
         {
             if (ShouldLog)
             {
-                Log($"Custom Event at {DateTime.Now}: {e.Message}");
+                Log($"{DateTime.Now} Custom Event: {e.Message}");
             }
         }
 
@@ -97,7 +97,7 @@ namespace EasyXnb
         {
             if (ShouldLog)
             {
-                Log($"Error at {DateTime.Now}: {e.File}: {e.Message}");
+                Log($"{DateTime.Now} Error: {e.Message}");
             }
             _errors.Add($"{e.File}: {e.Message}");
         }
@@ -106,7 +106,7 @@ namespace EasyXnb
         {
             if (ShouldLog)
             {
-                Log($"Message at {DateTime.Now}: {e.Message}");
+                Log($"{DateTime.Now} Message: {e.Message}");
             }
         }
 
@@ -114,7 +114,7 @@ namespace EasyXnb
         {
             if (ShouldLog)
             {
-                Log($"Warning at {DateTime.Now}: {e.Message}");
+                Log($"{DateTime.Now} Warning: {e.Message}");
             }
         }
 
