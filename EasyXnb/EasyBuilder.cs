@@ -43,9 +43,13 @@ namespace EasyXnb
                 RemoveCacheFile();
 
                 exceptionCaught = true;
+
                 Console.WriteLine();
+                ConsoleColor originalColor = Console.ForegroundColor;
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine((e.InnerException ?? e).Message);
+                Console.ForegroundColor = originalColor;
+
                 if (WaitForInputOnErrorSetting)
                 {
                     Console.ReadLine();
@@ -57,11 +61,13 @@ namespace EasyXnb
                 RemoveCacheFile();
             }
 
-
             if (!exceptionCaught || !WaitForInputOnErrorSetting)
             {
+                ConsoleColor originalColor = Console.ForegroundColor;
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("[EasyXnb] Done! (Closing in 10 seconds)");
+                Console.ForegroundColor = originalColor;
+
                 if (!CloseImmediatelySetting) Thread.Sleep(10000);
                 Environment.Exit(0);
             }
